@@ -1,0 +1,18 @@
+{
+  "name": "Workshop",
+  "version": "1.0.0",
+  "description": "Cloud Functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Remy Jardinet",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/storage": "^1.1.1",
+    "googleapis": "^19.0.0",
+    "@google-cloud/bigquery": "^0.10.0",
+    "@google-cloud/pubsub": "^0.14.7",
+    "promise": "^8.0.1"
+  }
+}
