@@ -26,7 +26,7 @@ import org.apache.beam.sdk.options.ValueProvider;
  * Options that can be used to configure the Beam examples.
  */
 
-public interface ExportToMongoOptions extends PipelineOptions {
+public interface WorkshopOptions extends PipelineOptions {
 
   @Description("file path")
   @Validation.Required
