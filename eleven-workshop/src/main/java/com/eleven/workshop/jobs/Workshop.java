@@ -3,6 +3,8 @@ package com.eleven.workshop.jobs;
 import com.eleven.workshop.common.WorkshopOptions;
 
 import com.eleven.workshop.processor.GetWords;
+import com.eleven.workshop.processor.ToBQProcessor;
+import com.google.api.services.bigquery.model.TableRow;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
@@ -19,13 +21,6 @@ public class Workshop {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(WorkshopOptions.class);
 
-    /** A SimpleFunction that converts a Word and Count into a printable string. */
-    public static class FormatAsTextFn extends SimpleFunction<KV<String, Long>, String> {
-        @Override
-        public String apply(KV<String, Long> input) {
-            return input.getKey() + ": " + input.getValue();
-        }
-    }
 
     public static void main(String[] args) {
         WorkshopOptions options = PipelineOptionsFactory.fromArgs(args).withValidation().as(WorkshopOptions.class);
@@ -39,11 +34,9 @@ public class Workshop {
         PCollection<KV<String, Long>> wordCounts =
                 words.apply(Count.<String>perElement());
 
+        PCollection<String> datas = wordCounts.apply(ParDo.of(new ToBQProcessor()));
 
-
-        PCollection<String> map = wordCounts.apply(MapElements.via(new FormatAsTextFn()));
-
-        map.apply("Write file", TextIO.write().to("gs://xxxxx/xxxxx").withoutSharding().withSuffix(".txt"));
+        datas.apply("Write file", TextIO.write().to("gs://xxxxx/xxxxx").withoutSharding().withSuffix(".txt"));
 
         p.run().waitUntilFinish();
     }
