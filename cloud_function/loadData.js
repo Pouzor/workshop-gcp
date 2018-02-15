@@ -7,7 +7,7 @@ const BigQuery = require('@google-cloud/bigquery');
 
 var date = new Date();
 
-const tableId = "bluekai_data";
+const tableId = "workshop";
 const datasetId = "workshop";
 
 
@@ -15,7 +15,7 @@ exports.loadData = function (event, callback) {
     const file = event.data;
 
 
-    if (file.resourceState === 'exists' && file.metageneration === '1') {
+    if (file.resourceState === 'exists' && file.metageneration === '1' && file.name == "file.json") {
         google.auth.getApplicationDefault(function (err, authClient, projectId) {
             if (err) {
                 throw err;

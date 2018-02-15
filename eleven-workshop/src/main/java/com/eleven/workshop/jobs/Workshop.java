@@ -32,12 +32,14 @@ public class Workshop {
         Pipeline p = Pipeline.create(options);
 
         PCollection<String> lines = p.apply("Read Files", TextIO.read().from(options.getFilePath()));
-        
+
         PCollection<String> words = lines.apply(
                 ParDo.of(new GetWords()));
 
         PCollection<KV<String, Long>> wordCounts =
                 words.apply(Count.<String>perElement());
+
+
 
         PCollection<String> map = wordCounts.apply(MapElements.via(new FormatAsTextFn()));
 
