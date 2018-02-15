@@ -36,7 +36,7 @@ public class Workshop {
 
         PCollection<String> datas = wordCounts.apply(ParDo.of(new ToBQProcessor()));
 
-        datas.apply("Write file", TextIO.write().to("gs://xxxxx/xxxxx").withoutSharding().withSuffix(".txt"));
+        datas.apply("Write file", TextIO.write().to("gs://xxxxx/xxxxx").withoutSharding().withSuffix(".json"));
 
         p.run().waitUntilFinish();
     }
