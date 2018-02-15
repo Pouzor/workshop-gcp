@@ -1,17 +1,13 @@
 package com.eleven.workshop.jobs;
 
 import com.eleven.workshop.common.WorkshopOptions;
-
 import com.eleven.workshop.processor.GetWords;
 import com.eleven.workshop.processor.ToBQProcessor;
-import com.google.api.services.bigquery.model.TableRow;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.transforms.Count;
-import org.apache.beam.sdk.transforms.MapElements;
 import org.apache.beam.sdk.transforms.ParDo;
-import org.apache.beam.sdk.transforms.SimpleFunction;
 import org.apache.beam.sdk.values.KV;
 import org.apache.beam.sdk.values.PCollection;
 import org.slf4j.Logger;
